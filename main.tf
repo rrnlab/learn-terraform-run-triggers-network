@@ -124,8 +124,8 @@ resource "aws_security_group" "public" {
 
   ingress {
     description = "HTTP ingress"
-    from_port   = 80
-    to_port     = 80
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -164,8 +164,8 @@ resource "aws_security_group" "private" {
 
   ingress {
     description = "HTTP ingress"
-    from_port   = 80
-    to_port     = 80
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
 
     cidr_blocks = aws_subnet.public.*.cidr_block
@@ -239,7 +239,7 @@ resource "aws_lb_listener" "http" {
 # }
 
 resource "aws_lb_target_group" "http" {
-  port     = 80
+  port     = 8080
   protocol = "HTTP"
   vpc_id   = aws_vpc.example.id
 
@@ -257,7 +257,7 @@ resource "aws_lb_target_group" "http" {
     timeout             = 5
     interval            = 10
     path                = "/index.html"
-    port                = 80
+    port                = 8080
   }
 
   tags = {
